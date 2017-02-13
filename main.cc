@@ -197,6 +197,7 @@ int main() {
 						while (time (NULL) < temp_time + 10) {
 							delay (50);
 							}
+							//should probably change the final directory of the video files to a usb and change the code accordingly
 						temp = "MP4Box -fps 30 -add " + video_name + " " + video_name + to_string (button_1_counter) + ".mp4";
 						       system (temp.c_str());
 						       fileLogs.pushback (video_name + to_string (button_1_counter) + ".mp4");
