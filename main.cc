@@ -163,7 +163,7 @@ int main(){
 
 		if(dis<=65){
 			temp_time=time(NULL);
-			delay(500);
+			delay(1000);				//this bit just checks that they stayed in front of the box and didnt just pass by
 				if(dis<=65){
 					
 					temp="raspivid -t 10000 -o " + video_name; //10000 is 10 seconds
