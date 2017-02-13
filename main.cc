@@ -120,6 +120,7 @@ int main(){
 	int button_2_counter=0;
 	vector<string> fileLogs;
 	time_t temp_time;
+	time_t temp_time_2;
 	loadLogs(fileLogs,button_1_counter,button_2_counter);
 	ultraInit();
 	const string video_name = "button_reaction_";
@@ -160,18 +161,50 @@ int main(){
 		delay(300);
 	
 
-		temp_time=time(NULL);
-		while(dis<=65){
-			if(time(NULL)>=temp_time+10){
-				open_door();
-				delay(10000);
-				close_door();
-			}
-			if(digitalRead(button_1)){
+		if(dis<=65){
+			temp_time=time(NULL);
+			delay(500);
+				if(dis<=65){
+					
+					temp="raspivid -t 10000 -o " + video_name; //10000 is 10 seconds
+					system(temp.c_str());
+					
 			
-			
-			}
-			else vibration_off();
+					while(dis<=65){
+						if(time(NULL)>=temp_time+10){
+							open_door();
+							temp_time_2=time(NULL);
+							while(time(NULL)<temp_time+10){
+							if(digitalRead(button_2)){	
+								button_2_counter++;
+								temp="xceptdpms force standby";//standby instead of off to turn screen back on
+								system(temp.c_str());
+								temp="omxplayer "+fileLogs.back();
+								system(temp.c_str());
+								delay(10000);//delays 10 seconds while video plays
+								temp="xceptdpms force off";//standby instead of off to turn screen back on
+								system(temp);
+								}
+							}
+							close_door();
+							break;
+						}
+						if(digitalRead(button_1)){
+							while(digitalRead(button_1)
+								vibration_on();
+							vibration_off();
+							button_1_counter++;
+							while(time(NULL)<temp_time+10){
+								delay(50);
+							}
+							temp="MP4Box -fps 30 -add "+video_name+" "+video_name+to_string(button_1_counter)+".mp4";
+							system(temp.c_str());
+							fileLogs.pushback(video_name+to_string(button_1_counter)+".mp4");
+							break;
+						}
+						else vibration_off();
+					}
+					}	
 	
 		}	
 	
