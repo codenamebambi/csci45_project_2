@@ -170,7 +170,7 @@ int main() {
 			if (dis <= 65) {
 
 				temp_time = time (NULL);
-				temp = "raspivid -t 10000 -o " + video_name; //10000 is 10 seconds
+				temp = "raspivid -t 10000 -o &" + video_name; //10000 is 10 seconds
 				system (temp.c_str());
 
 
@@ -181,11 +181,11 @@ int main() {
 					//while (time (NULL) < temp_time + 10) {
 					if (digitalRead (button_2)) {
 						button_2_counter++;
-						temp = "xset dpms force standby"; //standby instead of off to turn screen back on
+						temp = "xset dpms force standby &"; //standby instead of off to turn screen back on
 						system (temp.c_str());
 						temp = "omxplayer " + fileLogs.back();
 						system (temp.c_str());
-						delay (10000); //delays 10 seconds while video plays
+				//		delay (10000); //delays 10 seconds while video plays
 						temp = "xset dpms force off"; //standby instead of off to turn screen back on
 						system (temp.c_str());
 						while (temp_time + 11 > time (NULL)) {
@@ -206,7 +206,7 @@ int main() {
 							delay (50);
 						}
 						//should probably change the final directory of the video files to a usb and change the code accordingly
-						temp = "MP4Box -fps 30 -add " + video_name + " " + video_name + to_string (button_1_counter) + ".mp4";
+						temp = "MP4Box -fps 30 -add " + video_name + " " + video_name + to_string (button_1_counter) + ".mp4 &";
 						system (temp.c_str());
 						fileLogs.push_back (video_name + to_string (button_1_counter) + ".mp4");
 						break;
