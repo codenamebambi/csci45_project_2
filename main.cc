@@ -160,7 +160,7 @@ int main() {
 
 
 	while (true) {
-		print_counter();
+		print_counter(button_1_counter,button_2_counter);
 		dis = disMeasure();
 		delay (300);
 
@@ -187,14 +187,14 @@ int main() {
 								system (temp.c_str());
 								delay (10000); //delays 10 seconds while video plays
 								temp = "xceptdpms force off"; //standby instead of off to turn screen back on
-								system (temp);
+								system (temp.c_str());
 							}
 					//	}
 						//close_door();
 						break;
 					}
 					if (digitalRead (button_1)) {
-						while (digitalRead (button_1)
+						while (digitalRead (button_1))
 						        vibration_on();
 						        vibration_off();
 						        button_1_counter++;
@@ -204,7 +204,7 @@ int main() {
 							//should probably change the final directory of the video files to a usb and change the code accordingly
 						temp = "MP4Box -fps 30 -add " + video_name + " " + video_name + to_string (button_1_counter) + ".mp4";
 						       system (temp.c_str());
-						       fileLogs.pushback (video_name + to_string (button_1_counter) + ".mp4");
+						       fileLogs.push_back (video_name + to_string (button_1_counter) + ".mp4");
 						       break;
 					} else vibration_off();
 				}
