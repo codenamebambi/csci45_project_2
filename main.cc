@@ -16,8 +16,8 @@ using namespace std;
 
 
 
-#define ObstaclePin_1	13
-#define ObstaclePin_2	19
+#define ObstaclePin_1  19 //	13
+#define ObstaclePin_2  13//	19
 #define RelayPin	17
 #define Trig	5
 #define Echo	6
@@ -66,6 +66,7 @@ float disMeasure (void) {
 
 
 void ISR_1() {
+	cout<<"function done got called"<<endl;
 	closed = true;
 	open = false;
 }
@@ -87,6 +88,9 @@ void vibration_on();
 void vibration_off();
 
 
+void debug(){
+	cout<<"hey"<<endl;
+}
 
 
 
@@ -99,7 +103,7 @@ int main() {
 	if (wiringPiSetupGpio() == -1) {
 		return 1;
 	}
-	if (wiringPiISR (ObstaclePin_1, INT_EDGE_FALLING, &ISR_1) < 0) { //initiates first obstacle sensor
+	if (wiringPiISR (ObstaclePin_1, INT_EDGE_RISING, &debug) < 0) { //initiates first obstacle sensor
 		return 1;
 	}
 
@@ -172,9 +176,9 @@ int main() {
 
 				while (dis <= 65) {
 					if (time (NULL) >= temp_time + 10) {
-						open_door();
+						//open_door();
 						temp_time_2 = time (NULL);
-						while (time (NULL) < temp_time + 10) {
+						//while (time (NULL) < temp_time + 10) {
 							if (digitalRead (button_2)) {
 								button_2_counter++;
 								temp = "xceptdpms force standby"; //standby instead of off to turn screen back on
@@ -185,8 +189,8 @@ int main() {
 								temp = "xceptdpms force off"; //standby instead of off to turn screen back on
 								system (temp);
 							}
-						}
-						close_door();
+					//	}
+						//close_door();
 						break;
 					}
 					if (digitalRead (button_1)) {
@@ -259,20 +263,31 @@ void saveLogs (vector<string>& vec, int& b_1_count, int& b_2_count) {
 
 
 void open_door() {
-	while (open == false) {
-		digitalWrite (RelayPin, HIGH);
-		delay (100);
-		digitalWrite (RelayPin, LOW);
-		delay (300);
-	}
+//	while (open == false) {
+//		digitalWrite (RelayPin, HIGH);
+//		delay (100);
+//		digitalWrite (RelayPin, LOW);
+//		delay (300);
+//	}
+	while(open == false)
+		digitalWrite(RelayPin, HIGH);
+	cout << "Exit OpenDoor: " << bool(open) << endl;
+	digitalWrite(RelayPin, LOW);
 }
 void close_door() {
-	while (true) {
-		digitalWrite (RelayPin, HIGH);
-		delay (225);
-		digitalWrite (RelayPin, LOW);
-		delay (300);
-	}
+//	int meh=0;
+//	while (closed == false) {
+		//cout<<meh++<<endl;
+//		digitalWrite (RelayPin, HIGH);
+//		delay (100);
+//		digitalWrite (RelayPin, LOW);
+//		delay (300);
+//	}
+//	cout<<closed<<endl;
+	while(closed == false)
+		digitalWrite(RelayPin, HIGH);
+	cout << "Exit closedDoor: " << bool(closed) << endl;
+	digitalWrite(RelayPin, LOW);
 }
 void vibration_on() {
 	digitalWrite (RelayPin_2, HIGH);

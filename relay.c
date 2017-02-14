@@ -19,7 +19,7 @@ int main(){
 		
 	for(int i=0;i<20;i++){	
 		digitalWrite(RelayPin,HIGH);
-		delay(225);
+		delay(100);
 		digitalWrite(RelayPin,LOW);
 		delay(300);
 	}
