@@ -170,7 +170,7 @@ int main() {
 			if (dis <= 65) {
 
 				temp_time = time (NULL);
-				temp = "raspivid -t 10000 -o &" + video_name; //10000 is 10 seconds
+				temp = "raspivid -t 10000 -o " + video_name+" &"; //10000 is 10 seconds
 				system (temp.c_str());
 
 
@@ -186,7 +186,7 @@ int main() {
 						temp = "omxplayer " + fileLogs.back();
 						system (temp.c_str());
 				//		delay (10000); //delays 10 seconds while video plays
-						temp = "xset dpms force off"; //standby instead of off to turn screen back on
+						temp = "xset dpms force off &"; //standby instead of off to turn screen back on
 						system (temp.c_str());
 						while (temp_time + 11 > time (NULL)) {
 						delay (50);
