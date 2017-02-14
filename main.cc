@@ -210,7 +210,9 @@ int main() {
 						system (temp.c_str());
 						fileLogs.push_back (video_name + to_string (button_1_counter) + ".mp4");
 						break;
-					} else vibration_off();
+					}
+					if(temp_time+11<time(NULL))
+						break;
 				}
 			}
 
