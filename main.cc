@@ -188,7 +188,7 @@ int main() {
 						delay (10000); //delays 10 seconds while video plays
 						temp = "xset dpms force off"; //standby instead of off to turn screen back on
 						system (temp.c_str());
-						while (temp_time + 11 > time (NULL) {
+						while (temp_time + 11 > time (NULL)) {
 						delay (50);
 						}
 						break;
@@ -215,7 +215,7 @@ int main() {
 			}
 
 		}
-		while (temp_time + 11 > time (NULL) {
+		while (temp_time + 11 > time (NULL)) {
 		delay (50);
 		}
 	}
