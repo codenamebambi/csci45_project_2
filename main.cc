@@ -170,7 +170,7 @@ int main() {
 			if (dis <= 65) {
 
 				temp_time = time (NULL);
-				temp = "raspivid -t 10000 -o " + video_name+" &"; //10000 is 10 seconds
+				temp = "raspivid -t 10000 -o " + video_name + " &"; //10000 is 10 seconds
 				system (temp.c_str());
 
 
@@ -185,11 +185,11 @@ int main() {
 						system (temp.c_str());
 						temp = "omxplayer " + fileLogs.back();
 						system (temp.c_str());
-				//		delay (10000); //delays 10 seconds while video plays
+						//		delay (10000); //delays 10 seconds while video plays
 						temp = "xset dpms force off &"; //standby instead of off to turn screen back on
 						system (temp.c_str());
 						while (temp_time + 11 > time (NULL)) {
-						delay (50);
+							delay (50);
 						}
 						break;
 					}
@@ -211,14 +211,14 @@ int main() {
 						fileLogs.push_back (video_name + to_string (button_1_counter) + ".mp4");
 						break;
 					}
-					if(temp_time+11<time(NULL))
+					if (temp_time + 11 < time (NULL))
 						break;
 				}
 			}
 
 		}
 		while (temp_time + 11 > time (NULL)) {
-		delay (50);
+			delay (50);
 		}
 	}
 
